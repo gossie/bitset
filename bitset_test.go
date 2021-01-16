@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestBitset(t *testing.T) {
+func TestBitSet(t *testing.T) {
 	b := BitSet{}
 	b.Set(0)
 	b.Set(2)
@@ -91,6 +91,22 @@ func TestBitsetBiggerThan64EntriesWithCopy(t *testing.T) {
 		t.Fail()
 	}
 	if !b.IsSet(69) {
+		t.Fail()
+	}
+}
+
+func TestToString(t *testing.T) {
+	bitset := BitSet{}
+	bitset.Set(0)
+	bitset.Set(2)
+	bitset.Set(4)
+	bitset.Set(6)
+	bitset.Set(8)
+	bitset.Set(10)
+	bitset.Set(12)
+	bitset.Set(14)
+
+	if bitset.String() != "1010101010101010" {
 		t.Fail()
 	}
 }
