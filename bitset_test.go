@@ -313,3 +313,20 @@ func TestXorThisIsLonger(t *testing.T) {
 		t.Fatalf("%v xor %v = %v", bitset1, bitset2, bitset1.Xor(&bitset2))
 	}
 }
+
+func TestNotThisIsLonger(t *testing.T) {
+	bitset := BitSet{}
+	bitset.Set(0)
+	bitset.Set(2)
+	bitset.Set(4)
+	bitset.Set(6)
+	bitset.Set(8)
+	bitset.Set(10)
+	bitset.Set(12)
+	bitset.Set(14)
+	bitset.Set(19)
+
+	if bitset.Not().String() != "010101010101010111101111" {
+		t.Fatalf("not %v = %v", bitset, bitset.Not())
+	}
+}

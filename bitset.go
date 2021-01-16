@@ -84,6 +84,15 @@ func (b *BitSet) Xor(other *BitSet) BitSet {
 	return append(result, (*longer)[shorter.len():]...)
 }
 
+// Not performs an and between two bitsets.
+func (b *BitSet) Not() BitSet {
+	result := make([]byte, 0)
+	for _, bits := range *b {
+		result = append(result, ^bits)
+	}
+	return result
+}
+
 func determineShorterAndLongerBitset(b1 *BitSet, b2 *BitSet) (*BitSet, *BitSet) {
 	if b1.len() < b2.len() {
 		return b1, b2
