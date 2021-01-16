@@ -107,6 +107,74 @@ func TestToString(t *testing.T) {
 	bitset.Set(14)
 
 	if bitset.String() != "1010101010101010" {
-		t.Fail()
+		t.Fatalf("bitset = %v", bitset)
+	}
+}
+
+func TestAnd(t *testing.T) {
+	bitset1 := BitSet{}
+	bitset1.Set(0)
+	bitset1.Set(2)
+	bitset1.Set(4)
+	bitset1.Set(6)
+	bitset1.Set(8)
+	bitset1.Set(10)
+	bitset1.Set(12)
+	bitset1.Set(14)
+
+	bitset2 := BitSet{}
+	bitset2.Set(2)
+	bitset2.Set(3)
+	bitset2.Set(5)
+	bitset2.Set(12)
+
+	if bitset1.And(&bitset2).String() != "0010000000001000" {
+		t.Fatalf("%v and %v = %v", bitset1, bitset2, bitset1.And(&bitset2))
+	}
+}
+
+func TestAndOtherIsLonger(t *testing.T) {
+	bitset1 := BitSet{}
+	bitset1.Set(0)
+	bitset1.Set(2)
+	bitset1.Set(4)
+	bitset1.Set(6)
+	bitset1.Set(8)
+	bitset1.Set(10)
+	bitset1.Set(12)
+	bitset1.Set(14)
+
+	bitset2 := BitSet{}
+	bitset2.Set(2)
+	bitset2.Set(3)
+	bitset2.Set(5)
+	bitset2.Set(12)
+	bitset2.Set(19)
+
+	if bitset1.And(&bitset2).String() != "0010000000001000" {
+		t.Fatalf("%v and %v = %v", bitset1, bitset2, bitset1.And(&bitset2))
+	}
+}
+
+func TestAndThisIsLonger(t *testing.T) {
+	bitset1 := BitSet{}
+	bitset1.Set(0)
+	bitset1.Set(2)
+	bitset1.Set(4)
+	bitset1.Set(6)
+	bitset1.Set(8)
+	bitset1.Set(10)
+	bitset1.Set(12)
+	bitset1.Set(14)
+	bitset1.Set(19)
+
+	bitset2 := BitSet{}
+	bitset2.Set(2)
+	bitset2.Set(3)
+	bitset2.Set(5)
+	bitset2.Set(12)
+
+	if bitset1.And(&bitset2).String() != "0010000000001000" {
+		t.Fatalf("%v and %v = %v", bitset1, bitset2, bitset1.And(&bitset2))
 	}
 }

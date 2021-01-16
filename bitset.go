@@ -25,6 +25,10 @@ func (b BitSet) String() string {
 	return stringBuilder.String()
 }
 
+func (b *BitSet) len() int {
+	return len(*b)
+}
+
 // IsSet returns true if the bit at the given index is set.
 func (b *BitSet) IsSet(index uint) bool {
 	dataIndex := index >> 3
@@ -48,4 +52,23 @@ func (b *BitSet) Set(index uint) {
 // Bytes returns the a slice of byte.
 func (b *BitSet) Bytes() []byte {
 	return *b
+}
+
+// And performs an and between two bitsets.
+func (b *BitSet) And(other *BitSet) BitSet {
+	result := make([]byte, 0)
+	var shorter *BitSet
+	var longer *BitSet
+	if b.len() < other.len() {
+		shorter = b
+		longer = other
+	} else {
+		shorter = other
+		longer = b
+	}
+
+	for index, bits := range *shorter {
+		result = append(result, bits&(*longer)[index])
+	}
+	return result
 }
