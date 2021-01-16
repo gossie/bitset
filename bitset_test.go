@@ -245,3 +245,71 @@ func TestOrThisIsLonger(t *testing.T) {
 		t.Fatalf("%v or %v = %v", bitset1, bitset2, bitset1.Or(&bitset2))
 	}
 }
+
+func TestXor(t *testing.T) {
+	bitset1 := BitSet{}
+	bitset1.Set(0)
+	bitset1.Set(2)
+	bitset1.Set(4)
+	bitset1.Set(6)
+	bitset1.Set(8)
+	bitset1.Set(10)
+	bitset1.Set(12)
+	bitset1.Set(14)
+
+	bitset2 := BitSet{}
+	bitset2.Set(2)
+	bitset2.Set(3)
+	bitset2.Set(5)
+	bitset2.Set(12)
+
+	if bitset1.Xor(&bitset2).String() != "1001111010100010" {
+		t.Fatalf("%v xor %v = %v", bitset1, bitset2, bitset1.Xor(&bitset2))
+	}
+}
+
+func TestXorOtherIsLonger(t *testing.T) {
+	bitset1 := BitSet{}
+	bitset1.Set(0)
+	bitset1.Set(2)
+	bitset1.Set(4)
+	bitset1.Set(6)
+	bitset1.Set(8)
+	bitset1.Set(10)
+	bitset1.Set(12)
+	bitset1.Set(14)
+
+	bitset2 := BitSet{}
+	bitset2.Set(2)
+	bitset2.Set(3)
+	bitset2.Set(5)
+	bitset2.Set(12)
+	bitset2.Set(19)
+
+	if bitset1.Xor(&bitset2).String() != "100111101010001000010000" {
+		t.Fatalf("%v xor %v = %v", bitset1, bitset2, bitset1.Xor(&bitset2))
+	}
+}
+
+func TestXorThisIsLonger(t *testing.T) {
+	bitset1 := BitSet{}
+	bitset1.Set(0)
+	bitset1.Set(2)
+	bitset1.Set(4)
+	bitset1.Set(6)
+	bitset1.Set(8)
+	bitset1.Set(10)
+	bitset1.Set(12)
+	bitset1.Set(14)
+	bitset1.Set(19)
+
+	bitset2 := BitSet{}
+	bitset2.Set(2)
+	bitset2.Set(3)
+	bitset2.Set(5)
+	bitset2.Set(12)
+
+	if bitset1.Xor(&bitset2).String() != "100111101010001000010000" {
+		t.Fatalf("%v xor %v = %v", bitset1, bitset2, bitset1.Xor(&bitset2))
+	}
+}
